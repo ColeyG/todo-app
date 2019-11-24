@@ -73,12 +73,30 @@ app.post('/api', (req, res) => {
       entry = new List({ name: req.query.name, done: false });
     }
 
-    entry.save();
+    entry.save(() => {
+      res
+        .status(200)
+        .contentType('text')
+        .end('asdf');
+    });
+  } else {
+    res
+      .status(400)
+      .contentType('text')
+      .end('Missing Parameter');
+  }
+});
+
+app.patch('/api', (req, res) => {
+  if (req.query.id) {
+    List.findOne({ _id: req.query.id }, (err, resp) => {
+      console.log(resp);
+    });
 
     res
       .status(200)
       .contentType('text')
-      .end('asdf');
+      .end(req.query.id);
   } else {
     res
       .status(400)
