@@ -77,7 +77,7 @@ app.post('/api', (req, res) => {
       res
         .status(200)
         .contentType('text')
-        .end('asdf');
+        .end('success');
     });
   } else {
     res
@@ -90,13 +90,15 @@ app.post('/api', (req, res) => {
 app.patch('/api', (req, res) => {
   if (req.query.id) {
     List.findOne({ _id: req.query.id }, (err, resp) => {
-      console.log(resp);
+      if (!err) {
+        resp.done = !resp.done;
+        resp.save();
+        res
+          .status(200)
+          .contentType('text')
+          .end('success');
+      }
     });
-
-    res
-      .status(200)
-      .contentType('text')
-      .end(req.query.id);
   } else {
     res
       .status(400)
