@@ -1,3 +1,3 @@
-# Default
+# Todo App
 
-Default project to copy & paste.
+A Todo App using Ajax to satisfy an assignment for Advanced Web Tech.
