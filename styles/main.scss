@@ -5,6 +5,7 @@ $dark-blue: #032b43;
 $white: #edf7f6;
 $red: #d00000;
 $yellow: #ffba08;
+$black: #16161d;
 
 @mixin calistoga($color: $black, $size: 12pt, $weight: normal) {
   color: $color;
@@ -28,5 +29,30 @@ body {
   padding: 20px;
   h1 {
     @include calistoga($color: $white, $size: 42pt);
+  }
+}
+.todo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.todo-list {
+  @include roboto($color: $black, $size: 16pt);
+  margin: 20px;
+  max-width: 800px;
+  min-width: 800px;
+  tbody tr {
+    td {
+      padding: 3px;
+    }
+    &:nth-child(odd) {
+      background-color: darken($white, 12%);
+    }
+    &:first-child {
+      color: $white;
+      background-color: $blue;
+    }
   }
 }
