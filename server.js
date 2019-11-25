@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -27,6 +28,7 @@ mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true, useUnified
 
 app.use(session({ secret: config.sessionSecret, saveUninitialized: true, resave: true }));
 app.use(cookieParser());
+app.use(cors());
 
 app.get('/api', (req, res) => {
   List.find().then((resp, err) => {
