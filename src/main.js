@@ -3,6 +3,7 @@ import '../styles/main.scss';
 import 'babel-polyfill';
 
 const todoList = document.querySelector('.todo-list tbody');
+const addData = document.querySelector('.add-button');
 
 function tableItems(rowItems) {
   let response = '';
@@ -58,6 +59,13 @@ const completeAction = (e) => {
     });
 };
 
+const newEntry = (e) => {
+  e.preventDefault();
+  const todoItem = document.querySelector('.todo-item').value;
+  const todoDate = document.querySelector('.todo-date').value;
+  console.log(todoItem, todoDate);
+};
+
 const initialize = () => {
   getBg().then(() => {
     document.body.style.opacity = 1;
@@ -68,6 +76,7 @@ const initialize = () => {
       element.addEventListener('click', completeAction, false);
     });
   });
+  addData.addEventListener('click', newEntry, false);
 };
 
 initialize();
