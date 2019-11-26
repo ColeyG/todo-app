@@ -38,6 +38,14 @@ async function fetchData() {
     });
 }
 
+async function getBg() {
+  await fetch('https://api.scryfall.com/cards/random', { method: 'GET', mode: 'cors' })
+    .then((resp) => resp.json())
+    .then((data) => {
+      document.querySelector('.bg').style.backgroundImage = `url(${data.image_uris.art_crop})`;
+    });
+}
+
 const completeAction = (e) => {
   e.preventDefault();
   fetch(`http://localhost:3000/api?id=${e.target.id}`, { method: 'PATCH', mode: 'cors' })
@@ -51,6 +59,9 @@ const completeAction = (e) => {
 };
 
 const initialize = () => {
+  getBg().then(() => {
+    document.body.style.opacity = 1;
+  });
   fetchData().then(() => {
     const completeActions = document.querySelectorAll('.complete-button');
     completeActions.forEach((element) => {
