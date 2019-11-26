@@ -101,6 +101,9 @@ body {
   backdrop-filter: blur(15px);
   tbody tr {
     td {
+      &:first-child {
+        width: 450px;
+      }
       padding: 3px;
       button {
         @include button-normalize();
