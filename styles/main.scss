@@ -31,21 +31,27 @@ body {
     @include calistoga($color: $white, $size: 42pt);
   }
 }
-.todo {
+.main {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
   flex-direction: column;
-  width: 100%;
+  overflow-x: auto;
+  @media (min-width: break("medium")) {
+    align-items: center;
+  }
 }
 .todo-list {
   @include roboto($color: $black, $size: 16pt);
-  margin: 20px;
-  max-width: 800px;
-  min-width: 800px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  width: 800px;
   tbody tr {
     td {
       padding: 3px;
+      button {
+        @include button-normalize();
+        @include roboto($color: $dark-blue, $size: 16pt);
+      }
     }
     &:nth-child(odd) {
       background-color: darken($white, 12%);

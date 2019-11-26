@@ -21,19 +21,42 @@ async function fetchData() {
     .then((resp) => resp.json())
     .then((data) => {
       data.todo.forEach((listItem) => {
-        let due = '';
-        if (listItem.dueDate !== 'undefined') {
-          due = listItem.dueDate.split(' ');
-          due = due.slice(0, 4);
-          due = due.join(' ');
-        } else {
-          due = '';
+        if (listItem.done !== true) {
+          let due = '';
+          if (listItem.dueDate !== 'undefined') {
+            due = listItem.dueDate.split(' ');
+            due = due.slice(0, 4);
+            due = due.join(' ');
+          } else {
+            due = '';
+          }
+          const rowItems = [listItem.name, due];
+          const row = tableRow(`${tableItems(rowItems)}<td><button class="complete-button" id="${listItem.id}">Complete</button></td>`);
+          todoList.innerHTML += row;
         }
-        const rowItems = [listItem.name, due];
-        const row = tableRow(`${tableItems(rowItems)}<td></td>`);
-        todoList.innerHTML += row;
       });
     });
 }
 
-fetchData();
+const completeAction = (e) => {
+  e.preventDefault();
+  fetch(`http://localhost:3000/api?id=${e.target.id}`, { method: 'PATCH', mode: 'cors' })
+    .then((resp) => resp.text())
+    .then((data) => {
+      if (data === 'success') {
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+      }
+    });
+};
+
+const initialize = () => {
+  fetchData().then(() => {
+    const completeActions = document.querySelectorAll('.complete-button');
+    completeActions.forEach((element) => {
+      element.addEventListener('click', completeAction, false);
+    });
+  });
+};
+
+initialize();
