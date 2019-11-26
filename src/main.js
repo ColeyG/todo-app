@@ -5,6 +5,7 @@ import 'babel-polyfill';
 const todoList = document.querySelector('.todo-list tbody');
 const todoComplete = document.querySelector('.todo-complete tbody');
 const addData = document.querySelector('.add-button');
+const config = require('./config.json');
 
 function tableItems(rowItems) {
   let response = '';
@@ -19,7 +20,7 @@ function tableRow(row) {
 }
 
 async function fetchData() {
-  await fetch('http://localhost:3000/api', { method: 'GET', mode: 'cors' })
+  await fetch(`${config.mongoHost}`, { method: 'GET', mode: 'cors' })
     .then((resp) => resp.json())
     .then((data) => {
       data.todo.forEach((listItem) => {
@@ -53,7 +54,7 @@ async function getBg() {
 
 const completeAction = (e) => {
   e.preventDefault();
-  fetch(`http://localhost:3000/api?id=${e.target.id}`, { method: 'PATCH', mode: 'cors' })
+  fetch(`${config.mongoHost}?id=${e.target.id}`, { method: 'PATCH', mode: 'cors' })
     .then((resp) => resp.text())
     .then((data) => {
       if (data === 'success') {
@@ -68,7 +69,7 @@ const newEntry = (e) => {
   const todoItem = document.querySelector('.todo-item').value;
   const todoDate = document.querySelector('.todo-date').value;
   console.log(todoItem, todoDate);
-  fetch(`http://localhost:3000/api?name=${todoItem}&date=${todoDate}`, { method: 'POST', mode: 'cors' })
+  fetch(`${config.mongoHost}?name=${todoItem}&date=${todoDate}`, { method: 'POST', mode: 'cors' })
     .then((resp) => resp.text())
     .then((data) => {
       if (data === 'success') {
