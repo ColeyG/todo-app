@@ -64,6 +64,14 @@ const newEntry = (e) => {
   const todoItem = document.querySelector('.todo-item').value;
   const todoDate = document.querySelector('.todo-date').value;
   console.log(todoItem, todoDate);
+  fetch(`http://localhost:3000/api?name=${todoItem}&date=${todoDate}`, { method: 'POST', mode: 'cors' })
+    .then((resp) => resp.text())
+    .then((data) => {
+      if (data === 'success') {
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+      }
+    });
 };
 
 const initialize = () => {
