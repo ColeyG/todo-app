@@ -92,7 +92,8 @@ body {
     }
   }
 }
-.todo-list {
+.todo-list,
+.todo-complete {
   @include roboto($color: $black, $size: 16pt);
   box-sizing: border-box;
   margin-top: 20px;

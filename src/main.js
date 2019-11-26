@@ -3,6 +3,7 @@ import '../styles/main.scss';
 import 'babel-polyfill';
 
 const todoList = document.querySelector('.todo-list tbody');
+const todoComplete = document.querySelector('.todo-complete tbody');
 const addData = document.querySelector('.add-button');
 
 function tableItems(rowItems) {
@@ -22,18 +23,21 @@ async function fetchData() {
     .then((resp) => resp.json())
     .then((data) => {
       data.todo.forEach((listItem) => {
+        let due = '';
+        if (listItem.dueDate !== 'undefined') {
+          due = listItem.dueDate.split(' ');
+          due = due.slice(0, 4);
+          due = due.join(' ');
+        } else {
+          due = '';
+        }
+        const rowItems = [listItem.name, due];
         if (listItem.done !== true) {
-          let due = '';
-          if (listItem.dueDate !== 'undefined') {
-            due = listItem.dueDate.split(' ');
-            due = due.slice(0, 4);
-            due = due.join(' ');
-          } else {
-            due = '';
-          }
-          const rowItems = [listItem.name, due];
           const row = tableRow(`${tableItems(rowItems)}<td><button class="complete-button" id="${listItem.id}">Complete</button></td>`);
           todoList.innerHTML += row;
+        } else {
+          const row = tableRow(`${tableItems(rowItems)}<td></td>`);
+          todoComplete.innerHTML += row;
         }
       });
     });
