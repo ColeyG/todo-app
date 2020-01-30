@@ -3845,7 +3845,7 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! exports provided: mongoHost, default */
 /***/ (function(module) {
 
-eval("module.exports = JSON.parse(\"{\\\"mongoHost\\\":\\\"http://155.138.147.77:4000/api\\\"}\");\n\n//# sourceURL=webpack:///./src/config.json?");
+eval("module.exports = JSON.parse(\"{\\\"mongoHost\\\":\\\"http://localhost:3000/api\\\"}\");\n\n//# sourceURL=webpack:///./src/config.json?");
 
 /***/ }),
 
